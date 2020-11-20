@@ -3,14 +3,16 @@ using System;
 using CodersAcademy.API.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CodersAcademy.API.Migrations
 {
     [DbContext(typeof(MusicContext))]
-    partial class MusicContextModelSnapshot : ModelSnapshot
+    [Migration("20201120233611_CreateUserAndUserFavoriteMusic")]
+    partial class CreateUserAndUserFavoriteMusic
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
