@@ -21,6 +21,7 @@ import { fuseConfig } from "app/fuse-config";
 
 import { AppComponent } from "app/app.component";
 import { LayoutModule } from "app/layout/layout.module";
+import { PagesModule } from "./main/pages/pages.module";
 
 const appRoutes: Routes = [
     {
@@ -53,6 +54,7 @@ const appRoutes: Routes = [
         FuseThemeOptionsModule,
         // App modules
         LayoutModule,
+        PagesModule,
     ],
     bootstrap: [AppComponent],
 })
