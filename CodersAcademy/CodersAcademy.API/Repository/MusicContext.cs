@@ -13,6 +13,7 @@ namespace CodersAcademy.API.Repository
     {
         public DbSet<Album> Albums { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Music> Music { get; set; }
 
         public MusicContext(DbContextOptions<MusicContext> options): base(options)
         {
