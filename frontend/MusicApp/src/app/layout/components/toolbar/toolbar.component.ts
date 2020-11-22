@@ -9,6 +9,8 @@ import { FuseSidebarService } from "@fuse/components/sidebar/sidebar.service";
 
 import { navigation } from "app/navigation/navigation";
 import { Router } from "@angular/router";
+import { PersistedStateService } from "app/services/persisted-state.service";
+import User from "app/model/user";
 
 @Component({
     selector: "toolbar",
@@ -23,13 +25,16 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     navigation: any;
     selectedLanguage: any;
     userStatusOptions: any[];
+    user: User;
 
     // Private
     private _unsubscribeAll: Subject<any>;
 
     constructor(
         private _fuseConfigService: FuseConfigService,
-        private _fuseSidebarService: FuseSidebarService
+        private _fuseSidebarService: FuseSidebarService,
+        private persistedState: PersistedStateService,
+        private router: Router
     ) {
         this.navigation = navigation;
 
@@ -47,6 +52,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
                 this.rightNavbar = settings.layout.navbar.position === "right";
                 this.hiddenNavbar = settings.layout.navbar.hidden === true;
             });
+
+        this.user = this.persistedState.get(this.persistedState.LOGGED_IN);
     }
 
     /**
@@ -60,5 +67,10 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
     toggleSidebarOpen(key): void {
         this._fuseSidebarService.getSidebar(key).toggleOpen();
+    }
+
+    logout() {
+        this.persistedState.remove(this.persistedState.LOGGED_IN);
+        this.router.navigate(["auth", "login"]);
     }
 }

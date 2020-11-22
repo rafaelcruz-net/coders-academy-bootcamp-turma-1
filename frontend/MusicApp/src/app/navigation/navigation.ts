@@ -19,7 +19,7 @@ export const navigation: FuseNavigation[] = [
                 title: "Favorite Musics",
                 type: "item",
                 icon: "keyboard_arrow_right",
-                url: "/favorite-music",
+                url: "/favorite",
             },
             {
                 id: "signIn",

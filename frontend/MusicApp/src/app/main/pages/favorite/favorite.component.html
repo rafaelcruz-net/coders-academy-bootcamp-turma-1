@@ -14,10 +14,6 @@
         <th mat-header-cell *matHeaderCellDef>Nome</th>
         <td mat-cell *matCellDef="let element">{{element.name}} </td>
       </ng-container>
-      <ng-container matColumnDef="duration">
-        <th mat-header-cell *matHeaderCellDef>Duração</th>
-        <td mat-cell *matCellDef="let element"> {{element.duration}} </td>
-      </ng-container>
       <ng-container matColumnDef="band">
         <th mat-header-cell *matHeaderCellDef>Artista</th>
         <td mat-cell *matCellDef="let element"> {{element.band}} </td>
@@ -43,12 +39,12 @@
               <mat-icon class="secondary-text">more_vert</mat-icon>
             </button>
             <mat-menu #moreMenu="matMenu">
-              <button mat-menu-item aria-label="detail">
+              <button mat-menu-item aria-label="detail" (click)="goToDetail(element.albumId)">
                 <mat-icon>visibility</mat-icon>
                 <span>Ver Album</span>
               </button>
               <mat-divider></mat-divider>
-              <button mat-menu-item aria-label="remove">
+              <button mat-menu-item aria-label="remove" (click)="removeFromFavorite(element.musicId)">
                 <mat-icon>delete</mat-icon>
                 <span>Remover dos Favoritos</span>
               </button>
