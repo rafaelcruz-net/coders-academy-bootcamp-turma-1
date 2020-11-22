@@ -21,7 +21,6 @@ jobs:
       - name: Test
         run: dotnet test CodersAcademy/CodersAcademy.sln --no-restore --verbosity normal
       - name: Install SonarCloud scanner
-        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         shell: powershell
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
