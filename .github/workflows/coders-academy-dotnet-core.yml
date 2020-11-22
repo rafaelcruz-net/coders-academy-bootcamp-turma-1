@@ -2,22 +2,36 @@ name: .NET Core
 
 on:
   push:
-    branches: [ main ]
-    paths: 'CodersAcademy/**'
+    branches: [main]
+    paths: "CodersAcademy/**"
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.100
-    - name: Install dependencies
-      run: dotnet restore CodersAcademy/CodersAcademy.sln
-    - name: Build
-      run: dotnet build CodersAcademy/CodersAcademy.sln --configuration Release --no-restore
-    - name: Test
-      run: dotnet test CodersAcademy/CodersAcademy.sln --no-restore --verbosity normal
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.100
+      - name: Install dependencies
+        run: dotnet restore CodersAcademy/CodersAcademy.sln
+      - name: Build
+        run: dotnet build CodersAcademy/CodersAcademy.sln --configuration Release --no-restore
+      - name: Test
+        run: dotnet test CodersAcademy/CodersAcademy.sln --no-restore --verbosity normal
+      - name: Install SonarCloud scanner
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        shell: powershell
+        run: |
+          New-Item -Path .\.sonar\scanner -ItemType Directory
+          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        shell: powershell
+        run: |
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"rafaelcruz-net_coders-academy-bootcamp-turma-1" /o:"rafaelcruz-net" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+           dotnet build CodersAcademy/CodersAcademy.sln
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
