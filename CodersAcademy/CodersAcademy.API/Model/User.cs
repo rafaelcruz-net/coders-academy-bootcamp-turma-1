@@ -1,7 +1,7 @@
-﻿using System;
+﻿using CodersAcademy.API.Exception;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CodersAcademy.API.Model
 {
@@ -29,11 +29,10 @@ namespace CodersAcademy.API.Model
         public void RemoveFavoriteMusic(Music music)
         {
             var favMusic = this.FavoriteMusics
-                               .Where(x => x.MusicId == music.Id)
-                               .FirstOrDefault();
+                               .FirstOrDefault(x => x.MusicId == music.Id);
 
             if (favMusic == null)
-                throw new Exception("Não encontrada a musica na lista de favoritos");
+                throw new CodersAcademyException("Não encontrada a musica na lista de favoritos");
 
             this.FavoriteMusics.Remove(favMusic);
         }

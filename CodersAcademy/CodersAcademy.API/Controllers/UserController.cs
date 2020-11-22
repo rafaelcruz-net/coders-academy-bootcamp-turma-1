@@ -3,11 +3,9 @@ using CodersAcademy.API.Model;
 using CodersAcademy.API.Repository;
 using CodersAcademy.API.ViewModel.Request;
 using CodersAcademy.API.ViewModel.Response;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
