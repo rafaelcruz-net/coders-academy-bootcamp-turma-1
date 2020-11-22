@@ -85,7 +85,7 @@ namespace CodersAcademy.API.Controllers
 
             user.Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(user.Password));
             user.Photo = $"https://robohash.org/{Guid.NewGuid()}.png?bgset=any";
-
+            //Grava o usuário na base
             await this.UserRepository.CreateAsync(user);
 
             var result = this.Mapper.Map<UserResponse>(user);
